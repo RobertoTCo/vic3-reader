@@ -1,0 +1,11 @@
+[project]
+name = "vic3-reader"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "lark>=1.2.2",
+    "pandas>=2.3.1",
+    "pydantic>=2.11.7",
+]
