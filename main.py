@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
 	from utils import create_gui, read_file, save_as_json
 	from orchestrator import Orchestrator
-	from metrics.tags_and_players import TAGS
+	from metrics import TAGS
 
 	extension, text = read_file(PATH)
 

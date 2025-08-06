@@ -6,8 +6,7 @@ import pandas as pd
 from metrics.models.country_database import Country, CountryManager
 from metrics.models.basic import TagIDStr
 
-from metrics.economy import get_economy
-from metrics.administrative import get_adm
+from metrics import get_adm, get_economy, TAGS
 
 METRICS = [
     get_economy,
