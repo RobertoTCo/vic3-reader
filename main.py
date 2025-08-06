@@ -31,10 +31,11 @@ if __name__ == '__main__':
 
 	
 	test = Orchestrator(
-		data = data
+		data = data,
+		wanted_tags=TAGS
 	)
 
-	df = test.to_dataframe(TAGS)
+	df = test.to_dataframe()
 
 	print(df)
 	

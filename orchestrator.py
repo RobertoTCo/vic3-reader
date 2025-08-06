@@ -8,33 +8,38 @@ from metrics.models.basic import TagIDStr
 
 from metrics.economy import get_economy
 from metrics.administrative import get_adm
-from metrics.tags_and_players import TAGS
-
 
 METRICS = [
     get_economy,
     get_adm,
 ]
 
-
-class FilteredCountryManager(CountryManager):
-    wanted_tags:  ClassVar[Set[str]] = set(TAGS)
-
-
 class Vic3Save(BaseModel):
     """High-level of a parsed Victoria 3 save. Only expected information is defined."""
     date: str
-    country_manager: FilteredCountryManager
-
+    country_manager: CountryManager
 
 class Orchestrator():
 
     def __init__(
             self, 
             data: Vic3Save, 
+            wanted_tags: Set[TagIDStr] | None = None,
             metrics_fn: Sequence[Callable[[Country], Dict]] = METRICS
             ):
+        
+        # Set wanted_tags dynamically before instantiating Vic3Save
+        if not wanted_tags:
+            raise ValueError(
+                "You must specify which tag IDs are you searching in the save." \
+                "These ids are the digit IDs in the save, not the 3 letter tags."
+                )
+        
+        CountryManager.wanted_tags = wanted_tags
+
+        
         self.data = data if isinstance(data, Vic3Save) else Vic3Save(**data)
+        self.tags = wanted_tags
         self.metrics_fn = metrics_fn
 
     def _get_tag_metrics(self,
@@ -49,19 +54,17 @@ class Orchestrator():
         return merged
 
     def _iterate_tags(self,
-                     tags: List[TagIDStr]
                      ) -> Dict:
         
         tags_metrics = {}
 
-        for tag in tags:
+        for tag in self.tags:
             tags_metrics[tag] = self._get_tag_metrics(tag)
         
         return tags_metrics
     
 
     def to_dataframe(self, 
-                     tags: List[TagIDStr]
                      ) -> pd.DataFrame:
         """ 
         Construct Pandas DataFrame based on a dictionary of metrics
@@ -72,6 +75,6 @@ class Orchestrator():
             pd.DataFrame with constructed stats for a given year.
         
         """
-        tags_metrics = self._iterate_tags(tags)
-        
+        tags_metrics = self._iterate_tags()
+
         return pd.DataFrame.from_dict(tags_metrics, orient='index')
