@@ -15,23 +15,12 @@ def manage_parsing(extension: str, text: str) -> Dict:
 
 	return dict(parsed)
 
-# text = r"""17={
-# 	is_main_tag=yes
-# 	definition="JAP"
-# 	government="gov_shogunate"
-# 	dynamic_name={
-# 		dynamic_country_name="dyn_c_japan_shogunate"
-# 		dynamic_country_adjective="dyn_c_japan_shogunate_adj"
-# 	}
-# 	map_color=rgb { 45 91 79 }
-# 	ruler=3355
-# 	heir=16785195
-# 	}"""
-# extension = '.v3'
 
 if __name__ == '__main__':
 
 	from utils import create_gui, read_file, save_as_json
+	from orchestrator import Orchestrator
+	from metrics.tags_and_players import TAGS
 
 	extension, text = read_file(PATH)
 
@@ -39,5 +28,14 @@ if __name__ == '__main__':
 
 	if extension != '.json':
 		save_as_json(PATH, data)	# cache version 
+
+	
+	test = Orchestrator(
+		data = data
+	)
+
+	df = test.to_dataframe(TAGS)
+
+	print(df)
 	
 	create_gui(data)
