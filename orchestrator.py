@@ -1,4 +1,4 @@
-from typing import ClassVar, Callable, Dict, List, Sequence, Set
+from typing import Callable, Dict, Sequence, Set
 from pydantic import BaseModel
 
 import pandas as pd
