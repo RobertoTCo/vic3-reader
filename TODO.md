@@ -18,7 +18,7 @@
 
 1. ~~Prestigio (es un valor en country manager, por país)~~
 2. ~~GDP (es un valor en country manager, por país)~~
-3. ~~SoL (no sé dónde esta) ~~
+3. ~~SoL (no sé dónde esta)~~
 4. ~~POP (suma de los 3 estratos en pop_statistics, country manager, por país)~~
 5. ~~Peasants (en population_workforce_by_profession (creo, uk tiene 3.9M) , pop_statistics, country manager, por país; hay que sacar el ID)~~
 6. ~~employed (no sé, debería de ser en pop_statistics)~~
