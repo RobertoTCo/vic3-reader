@@ -3,8 +3,7 @@ from pydantic import BaseModel
 
 import pandas as pd
 
-from metrics.models.country_database import Country, CountryManager
-from metrics.models.basic import TagIDStr
+from metrics.models import Country, CountryManager, TagIDStr
 
 from metrics import get_adm, get_economy
 

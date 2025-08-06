@@ -1,6 +1,6 @@
 """Defines the basic schemes that are used to identify data in a Victoria 3 save."""
 
-from pydantic import BaseModel , ConfigDict, RootModel, field_validator
+from pydantic import BaseModel , RootModel, field_validator
 from typing import Dict, List, NewType
 from datetime import datetime, date
 
