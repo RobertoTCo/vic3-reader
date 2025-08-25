@@ -1,9 +1,9 @@
 """Defines the scheme that compose a country data in the country_manager database in a Victoria 3 save."""
 
 from typing import Any, ClassVar, Dict, List, Optional, Set
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-from.basic import TagIDStr, TrendObject
+from.basic import TagIDStr, TrendObject #, alias_generator
 
 
 class Budget(BaseModel):
@@ -12,23 +12,38 @@ class Budget(BaseModel):
     money: float
     principal: Optional[float] = 0.0
 
-
 class PopStats(BaseModel):
     """Model for expected information related to population"""
-    population_lower_strata: int
-    population_middle_strata: int
-    population_upper_strata: int
-    population_radicals: int
-    population_loyalists: int
-    population_political_participants: int
-    population_salaried_workforce: int              # employees
-    population_subsisting_workforce: int            # peasants
-    population_unemployed_workforce: int            # not employeed
-    population_government_workforce: int            # burocrats and clerks in gov buildings
-    population_military_workforce: int              # army
-    population_laborer_workforce: int               
+
+    # To comply with Excel constraints with sheet naming, 
+    # we need to ensure variables are less than 31 char long.
+    # For this reason, we use an alias generator to match inputs from the vic3 saves, 
+    # while keeping the var names shorter.
+
+    alias_generator = lambda field_name: (
+        "population_" + field_name[len("pop_"):] if field_name.startswith("pop_") else field_name
+    )
+
+    model_config = ConfigDict(
+        alias_generator=alias_generator,
+        populate_by_name=True   # allow using aliases as well as field names
+    )
+
+    pop_lower_strata: int        # i.e. this gets replaced with population_lower_strata 
+    pop_middle_strata: int       # by the alias generator
+    pop_upper_strata: int
+    pop_radicals: int
+    pop_loyalists: int
+    pop_political_participants: int
+    pop_salaried_workforce: int              # employees
+    pop_subsisting_workforce: int            # peasants
+    pop_unemployed_workforce: int            # not employeed
+    pop_government_workforce: int            # burocrats and clerks in gov buildings
+    pop_military_workforce: int              # army
+    pop_laborer_workforce: int               
     #...
     primary_cultures_population: int
+
 
 
 class ConstructionElement(BaseModel):

@@ -2,8 +2,9 @@
 
 from typing import Callable, Dict, Sequence
 
-from .models.country_database import ConstructionElement, Country
-from .models.basic import TagIDStr, warning_more_than_one_channel
+from .models import Country, TagIDStr, Vic3Save
+from .models.country_database import ConstructionElement
+from .models.basic import warning_more_than_one_channel
 
 # principal, credit, money
 # gpd
@@ -79,9 +80,11 @@ def get_economy(data: 'Vic3Save',
     Args:
         data: Vic3Save - Parsed Vic3 save information.
         tag_id: TagIDStr - The tag ID for a country in the database.
+        functions (Opt): each function define how to extract one or semantically grouped metrics. 
+            The expected output is to be a Dict['metric name', 'value']
         
     Returns:
-        Dict with all metrics collected in the module.
+        Dict ['metric name', 'value'] with all metrics collected in the module.
 
     """
     country = data.country_manager.database[tag_id]

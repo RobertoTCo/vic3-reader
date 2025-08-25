@@ -62,8 +62,15 @@ class ProcessingWarning(Warning):
 
 def warning_more_than_one_channel(trend_object: TrendObject):
     """ 
-    Raise a warning when only one channel is expected to get a metric 
-    but do not stop the execution.
+    Raise a warning when only one channel is expected to get a metric. 
+    Do not stop the execution.
     """
     if len( trend_object.channels.keys() ) > 1:
-        warn("This is a custom warning!", ProcessingWarning)
+        warn(
+            (
+                "Getting data from a trend channel in save. "
+                "There should only be one channel but we found more! "
+                "Extracting from first channel"
+            ),
+            ProcessingWarning,
+        )
