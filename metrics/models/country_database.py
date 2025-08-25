@@ -3,7 +3,7 @@
 from typing import Any, ClassVar, Dict, List, Optional, Set
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-from.basic import TagIDStr, TrendObject #, alias_generator
+from.basic import TagIDStr, TrendObject
 
 
 class Budget(BaseModel):
