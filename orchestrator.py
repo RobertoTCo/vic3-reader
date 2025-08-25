@@ -107,13 +107,6 @@ class Orchestrator():
         self._saved_metrics: List[ Tuple[date, pd.DataFrame] ] = sorted(save_metrics, key=lambda x: x[0])
 
 
-    # def TAGs str based on country_manager for last save
-    # basically we have the sorted self.saved_metrics, 
-    # we check the last df and get TAGs metric conversion in country_manager
-
-    def _get_last_tags_across_saves(self):
-        pass
-
     def _get_df_long_from_files(self):
         """
         Merge multiple (game_date, df) tuples into one dataframe.
@@ -187,9 +180,6 @@ class Orchestrator():
             filename = os.path.join(folder, filename)
 
         wide_tables: Dict[str, pd.DataFrame] = {}
-
-        # Neccesary to ensure that 
-        # _header = self.metrics_df.index.get_level_values('tag_id').unique() 
 
         for col in self.metrics_df.columns:
             wide_tables[col] = self.metrics_df[col].unstack(level='tag_id')
