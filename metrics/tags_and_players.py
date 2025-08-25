@@ -45,7 +45,7 @@ def get_players(previous_played: PreviousPlayed) -> Dict:
 
 
 def get_tag_definition(country: Country) -> Dict:
-    return country.definition
+    return {'TAG': country.definition}
 
 
 TAG_FN = [
@@ -58,15 +58,16 @@ def get_tag_data(data: 'Vic3Save',
                 functions: Sequence[Callable] = TAG_FN
                 ) -> Dict:
     """
-    Find the database data for a given country and extract the economy metrics
-    defined in the module.
+    Find the database data for a given country and extract the associated tag metrics.
     
     Args:
         data: Vic3Save - Parsed Vic3 save information.
         tag_id: TagIDStr - The tag ID for a country in the database.
+        functions (Opt): each function define how to extract one or semantically grouped metrics. 
+            The expected output is to be a Dict['metric name', 'value']
         
     Returns:
-        Dict with all metrics collected in the module.
+        Dict ['metric name', 'value'] with all metrics collected in the module.
 
     """
     country = data.country_manager.database[tag_id]
