@@ -1,42 +1,32 @@
-from pathlib import Path
-from typing import Dict
 
-PATH = Path('saves/1844 TXT.v3')
-
-def manage_parsing(extension: str, text: str) -> Dict:
-
-	if extension == '.json':
-		import json
-		return json.loads(text)
-	
-	from parser import parser
-	
-	parsed = parser.parse(text)
-
-	return dict(parsed)
 
 
 if __name__ == '__main__':
-
-	from utils import create_gui, read_file, save_as_json
-	from orchestrator import Orchestrator
+	
+	from pathlib import Path
+	from utils import create_gui
 	from metrics import TAGS
 
-	extension, text = read_file(PATH)
+	from metrics import get_adm, get_economy
 
-	data = manage_parsing(extension, text)
-
-	if extension != '.json':
-		save_as_json(PATH, data)	# cache version 
-
+	METRICS = [
+		get_economy,
+		get_adm,
+	]
 	
-	test = Orchestrator(
-		data = data,
-		wanted_tags=TAGS
-	)
+	from orchestrator import Orchestrator
+	FOLDER = Path('saves')
 
-	df = test.to_dataframe()
+	orchestrator = Orchestrator(
+			folder_path=FOLDER, 
+			wanted_tags=TAGS,
+			metrics_fn=METRICS,
+			save_as_json=True
+			)
 
-	print(df)
-	
-	create_gui(data)
+	# orchestrator.save_long("result.csv", folder="results")
+	orchestrator.save_multiple_sheets("result.xlsx", folder="results")
+		
+	print(orchestrator)
+
+	# create_gui(data)
