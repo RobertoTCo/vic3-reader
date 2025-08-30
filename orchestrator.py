@@ -39,13 +39,16 @@ class Orchestrator():
                     WARNING! The resulting game JSON can be very heavy, around 500MB.
 
     Attributes:
-    -   self.metrics: long-format table with metrics (columns) per year and Tag (row multi-index).
+    -   self.metrics_df: long-format table with metrics (columns) per year and Tag (row multi-index).
 
         Print in console the created instance to preview the resulting table.
 
     Methods:
-    -   to_dataframe(). Use this method to parse all extracted metrics to a dataframe object. This returns a tuple with the
-        table and the date in the game.
+    -   self.save_long(). Use this method to save the self.metrics_df in a specific format supported by Pandas library.
+                        The resulting table is a row per year and tag and columns per every metric.
+
+    -   self.save_multiple_sheets(). Use this method to save self.metrics_df as a excel or .ods format 
+                        where each page isfor a metric, a row per year and each column is a tag.
     """
 
     def __init__(
