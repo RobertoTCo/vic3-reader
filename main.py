@@ -1,32 +1,26 @@
 
+def main():
+	from config import CACHE_AS_JSON, FILE_RESULTS, FOLDER_RESULTS, FOLDER_SAVES, METRICS, TAGS
+
+
+	from orchestrator import Orchestrator
+
+	orchestrator = Orchestrator(
+			folder_path=FOLDER_SAVES, 
+			wanted_tags=TAGS,
+			metrics_fn=METRICS,
+			save_as_json=CACHE_AS_JSON
+			)
+
+	# You can save the table as long format (each row is a year and tag; each column is a metric. )
+	# Or you can obtain an excel or ods with a table per metric, in this case each row is a year and each column a tag.
+
+	# For that, use orchestrator.save_long() or orchestrator.save_multiple_sheets(). 
+
+	# orchestrator.save_long(FILE_RESULTS, folder=FOLDER_RESULTS)
+	orchestrator.save_multiple_sheets(FILE_RESULTS, folder=FOLDER_RESULTS)
 
 
 if __name__ == '__main__':
 	
-	from pathlib import Path
-	from utils import create_gui
-	from metrics import TAGS
-
-	from metrics import get_adm, get_economy
-
-	METRICS = [
-		get_economy,
-		get_adm,
-	]
-	
-	from orchestrator import Orchestrator
-	FOLDER = Path('saves')
-
-	orchestrator = Orchestrator(
-			folder_path=FOLDER, 
-			wanted_tags=TAGS,
-			metrics_fn=METRICS,
-			save_as_json=True
-			)
-
-	# orchestrator.save_long("result.csv", folder="results")
-	orchestrator.save_multiple_sheets("result.xlsx", folder="results")
-		
-	print(orchestrator)
-
-	# create_gui(data)
+	main()
