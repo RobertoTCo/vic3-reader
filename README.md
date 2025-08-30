@@ -1,55 +1,48 @@
-# Vic3-reader
-Análisis en tiempo real de los nuevos posts que se generan en bluesky
+# Vic3-reader: A custom tool to extract stats & metrics from Victoria 3 games.
 
-### ¿Qué es?
 
-Es una aplicación que se encarga de leer saves de Victoria 3 y convertirlo a un diccionario anidado. El diccionario se puede explorar para sacar cada valor del archivo save según la semántica definida por Paradox. 
+### What is this?
 
-Como objetivo final, vamos a tener una mini-ETL que sea capaz de:
-1. Encontrar en la carpeta 'saves' archivos de .v3 (en texto plano).
-2. Obtener métricas para unos países (TAGs) definidos.
-3. Guardar el resultado en un excel para.
+With vic3-reader you can automatically extract a set of basic statistics and metrics from your game. This is implemented in a way where you just need to specify a minimum info about where to find the save files and how you want to extract them. This tool implements all the hard work for you and gives you all the info in one file.
 
-##### módulo parser
-Define la gramática para poder estructurar los saves y cargarlos correctamente en Python.
+Currently, the tool has implemented a set of basic stats related to treasury, debt, population, infamy, standard of living and construction. In the future, other metrics that are not explicitly written in the files may be added to this tool.
 
-##### módulos utils
-Define (a) cómo encontrar y leer los saves. Opcional, también define cómo guardar el archiv en JSON para no repetir el uso del parser cada vez.
+<u>If you would like to contribute adding more metrics, please read [How to add more](./how_to_add_more.md).</u>
 
-Define (b) la lógica para crear una interfaz que te permite explorar interactivamente los datos del save.
 
-##### módulo metrics
-Define la semántica para explorar y obtener los datos del juego una vez convertido a un diccionario anidado.
+### How can I use it?
 
-## TODO List
-Ver markdown TODO.md
+To use this tool, 
 
-## Entorno de desarrollo
+(1) first clone this repository or download the files.
 
-Para el desarrollo de esta aplicación, se usa la herramienta [uv](https://docs.astral.sh/uv/), que es una herramienta de gestión de paquetes y dependencias para Python. Ver la página de instalación [aquí](https://docs.astral.sh/uv/getting-started/installation/).
+(2) Install dependencies specified in pyproject.toml and uv.loc with UV or another package tool.
 
-### Uso de uv
+(3) Prepare your vic3 save files as plain text. By default, vic3 saves are binarized.
 
-Para instalar las dependencias, se puede usar el comando:
+Try [reddit: How to edit/decrypt victoria 3 save files?](https://www.reddit.com/r/victoria3/comments/yg4s7e/how_to_editdecrypt_victoria_3_save_files/) or you can use the debug console in-game to save files as plain text, [Youtube: How to Use the In-Game Editor](https://www.youtube.com/watch?v=V49oRZUkDDI&embeds_referring_euri=https%3A%2F%2Fwww.bing.com%2F&embeds_referring_origin=https%3A%2F%2Fwww.bing.com&source_ve_path=Mjg2NjY).
 
-```bash
-uv sync
-```
+(4) Edit the [config.py](./config.py) to specify the location of your plain-text saves, how to save the stats, what metrics you want and which countries. Save changes.
 
-Para añadir una dependencia, se puede usar el comando:
+(5) Execute [main.py](./main.py) after editing the config.py file. The execution may take a while depending on how many saves you use. Usually it can take around 5 minutes per save.
+ 
+<br>
+ 
+# I want to understand the code
 
-```bash
-uv add <nombre_de_la_dependencia>
-```
+### How does this tool work?
 
-Esto es similar a usar `pip install <nombre_de_la_dependencia>`. Las dependencias se encuentran en el archivo `pyproject.toml` y en el archivo `uv.lock` (que no hay que añadir al `.gitignore`).
+This tool is composed of 4 main setions. 
 
-Para ejecutar el script, se puede usar el comando:
+(a) Specify in [config.py](./config.py) the variables to execute the programme. Then, execute the [main.py](./main.py) file to extract the metrics.
 
-```bash
-uv run <nombre_del_script>
-```
+(b) The [Metrics modules](./metrics/) define how different stats are extracted from the save. To accurately navigate through vic3 data, the [models subfolder](./metrics/models/) defines the data structure for every section where metrics are extracted.
 
-## Git
+(c) The [parser modules](./parser/) define how to read the sintax of a vic3 save file by a DSL and how to translate it to a Python dictionary when reading a file.
 
-Para escribir los mensajes de los commits, vamos a usar el formato de [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+(d) The [orchestrator.py](./orchestrator.py) module is in charge of combining all the logic, iterating through multiple files, reading and extrating metrics and providing methods to save them as different data formats.
+
+
+# License
+
+MIT License
