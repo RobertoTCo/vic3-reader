@@ -1,6 +1,6 @@
 """Defines the basic schemes that are used to identify data in a Victoria 3 save."""
 
-from pydantic import BaseModel , RootModel, field_validator
+from pydantic import BaseModel, field_validator
 from typing import Dict, List, NewType
 from datetime import datetime, date
 
@@ -14,15 +14,6 @@ TagIDStr
 Numeric IDs for a specific country throughout its lifespan in Vic3 game.
 These are stored as strings with numeric digits.
 """
-
-
-class TagModel(RootModel[List[TagIDStr]]):
-    """ 
-     List[TagID]
-     
-     List defining for what countries should metrics be extracted
-     """
-    pass
 
 
 class Channel(BaseModel):

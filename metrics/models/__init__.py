@@ -1,6 +1,6 @@
 from .country_database import Country, CountryManager
 from pydantic import ValidationError
-from .basic import TagIDStr, TagModel
+from .basic import TagIDStr
 
 from pydantic import BaseModel
 
