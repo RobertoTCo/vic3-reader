@@ -139,16 +139,16 @@ class Orchestrator():
         The format is inferred from the file extension.
         Extra kwargs are passed to the corresponding pandas method.
         """
-        import os
         # Extract file extension without dot and convert to lowercase
-        ext = os.path.splitext(filename)[1][1:].lower()
+        ext = Path(filename).suffix[1:].lower()
 
         if not ext:
             raise ValueError("Filename must have an extension to infer the format.")
         
         if folder:
-            os.makedirs(folder, exist_ok=True)
-            filename = os.path.join(folder, filename)
+            folder_path = Path(folder)
+            folder_path.mkdir(parents=True, exist_ok=True)
+            filepath = folder_path / filename
 
         # Construct the method name
         method_name = f"to_{ext}"
@@ -159,7 +159,7 @@ class Orchestrator():
 
         # Dynamically call the method
         kwargs['index'] = True
-        getattr(self.metrics_df, method_name)(filename, **kwargs)
+        getattr(self.metrics_df, method_name)(filepath, **kwargs)
 
 
     def save_multiple_sheets(self, filename: str, folder: str = None, **kwargs ):
@@ -168,16 +168,16 @@ class Orchestrator():
         The format is inferred from the file extension.
         Extra kwargs are passed to the corresponding pandas method.
         """
-        import os
         # Extract file extension without dot and convert to lowercase
-        ext = os.path.splitext(filename)[1][1:].lower()
+        ext = Path(filename).suffix[1:].lower()
 
         if not ext or ext not in ['xlsx', 'xls', 'ods']:
             raise ValueError("Filename must have a valid extension to support sheets: xlsx, xlsx or ods.")
         
         if folder:
-            os.makedirs(folder, exist_ok=True)
-            filename = os.path.join(folder, filename)
+            folder_path = Path(folder)
+            folder_path.mkdir(parents=True, exist_ok=True)
+            filepath = folder_path / filename
 
         wide_tables: Dict[str, pd.DataFrame] = {}
 
@@ -186,7 +186,7 @@ class Orchestrator():
 
         kwargs['index'] = True
 
-        with pd.ExcelWriter(filename, engine=kwargs.get('engine', None)) as writer:
+        with pd.ExcelWriter(filepath, engine=kwargs.get('engine', None)) as writer:
             for var, table in wide_tables.items():
                 table.columns = table.columns.map(str)  # avoid excel reinterpreting the IDs as floats
                 table.to_excel(writer, sheet_name=var, **kwargs)
