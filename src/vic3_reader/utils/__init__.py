@@ -1,4 +1,4 @@
-from .gui import create_gui
+from vic3_reader.utils.gui import create_gui
 
 
 __all__ = [

@@ -2,9 +2,9 @@
 
 from typing import Callable, Dict, Sequence
 
-from .models import Country, TagIDStr, Vic3Save
-from .models.country_database import ConstructionElement
-from .models.basic import warning_more_than_one_channel
+from vic3_reader.metrics.models import Country, TagIDStr, Vic3Save
+from vic3_reader.metrics.models.country_database import ConstructionElement
+from vic3_reader.metrics.models.basic import warning_more_than_one_channel
 
 # principal, credit, money
 # gpd

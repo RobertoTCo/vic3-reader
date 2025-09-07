@@ -2,8 +2,8 @@
 
 from typing import Callable, Dict, Sequence
 
-from .models import Country, TagIDStr, Vic3Save
-from .models.basic import warning_more_than_one_channel
+from vic3_reader.metrics.models import Country, TagIDStr, Vic3Save
+from vic3_reader.metrics.models.basic import warning_more_than_one_channel
 
 
 def get_prestige(country: Country) -> Dict:

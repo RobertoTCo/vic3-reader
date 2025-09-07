@@ -1,7 +1,4 @@
 """ Define here all the variables to configure what metrics, which files and how to use the vic3-reader tool."""
-from pathlib import Path
-
-
 # What is the folder to the save vic3 files?
 
 FOLDER_SAVES = 'saves/'
@@ -12,7 +9,7 @@ FOLDER_SAVES = 'saves/'
 # see https://pandas.pydata.org/pandas-docs/stable/search.html?q=to_
 
 FOLDER_RESULTS = 'results/'
-FILE_RESULTS = "results.xlsx"
+FILE_RESULTS = "wadai.csv"
 
 
 # If you are running through the same files multiple times, you may want to set this as True
@@ -23,7 +20,7 @@ CACHE_AS_JSON = False
 # Define what metrics you want to extract importing the main functions
 # from the 'metrics' modules
 
-from metrics import get_adm, get_economy
+from vic3_reader.metrics import get_adm, get_economy
 
 METRICS = [
     get_economy,

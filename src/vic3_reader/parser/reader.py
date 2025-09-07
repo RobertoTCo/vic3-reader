@@ -61,7 +61,7 @@ def manage_parsing(extension: str, text: str) -> Dict:
 	if extension == '.json':
 		return json.loads(text)
 	
-	from parser import parser
+	from vic3_reader.parser import parser
 	
 	parsed = parser.parse(text)
 

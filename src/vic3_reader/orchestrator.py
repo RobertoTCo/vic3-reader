@@ -4,11 +4,11 @@ from pathlib import Path
 
 import pandas as pd
 
-from metrics.models import Country, CountryManager, TagIDStr, ValidationError, Vic3Save
+from vic3_reader.metrics.models import Country, CountryManager, TagIDStr, ValidationError, Vic3Save
 
-from metrics import get_game_date, get_tag_data
+from vic3_reader.metrics import get_game_date, get_tag_data
 
-from parser.reader import Vic3Reader
+from vic3_reader.parser.reader import Vic3Reader
 
 none_wanted_tag_error = ( 
     "You must specify which tag IDs are you searching in the save." \

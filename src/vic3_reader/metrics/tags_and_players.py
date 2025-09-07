@@ -1,8 +1,8 @@
 from typing import Callable, Dict, List, Sequence
 from pydantic import BaseModel
 
-from .models.country_database import Country
-from .models.basic import TagIDStr
+from vic3_reader.metrics.models.country_database import Country
+from vic3_reader.metrics.models.basic import TagIDStr
 
 TAGS = [
     "1",      # GBR
