@@ -1,8 +1,8 @@
 """ You can use this script to visualise a save game with a interactive interface."""
 
 from pathlib import Path
-from utils import create_gui
-from parser.reader import Vic3Reader
+from vic3_reader.utils import create_gui
+from vic3_reader.parser.reader import Vic3Reader
 
 FOLDER = 'saves/'
 FILENAME = '...'
