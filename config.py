@@ -9,10 +9,10 @@ FOLDER_SAVES = 'saves/'
 # see https://pandas.pydata.org/pandas-docs/stable/search.html?q=to_
 
 FOLDER_RESULTS = 'results/'
-FILE_RESULTS = "wadai.csv"
+FILE_RESULTS = "results.csv"
 
 
-# If you are running through the same files multiple times, you may want to set this as True
+# If you are running through the same files multiple times, you may want to set this as True to save time
 # Warning! Vic3 saves as JSON are around 500MB, be careful with your disk space
 CACHE_AS_JSON = False
 
