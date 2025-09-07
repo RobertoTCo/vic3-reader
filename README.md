@@ -7,7 +7,7 @@ With vic3-reader you can automatically extract a set of basic statistics and met
 
 Currently, the tool has implemented a set of basic stats related to treasury, debt, population, infamy, standard of living and construction. In the future, other metrics that are not explicitly written in the files may be added to this tool.
 
-<u>If you would like to contribute adding more metrics, please read [How to add more](./how_to_add_more.md).</u>
+<u>If you would like to contribute adding more metrics, please read [How to add more](./documentation//how_to_add_more.md).</u>
 
 
 ### How can I use it?
