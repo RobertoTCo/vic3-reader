@@ -11,7 +11,7 @@ You can also use the [explore_save_with_gui.py](./explore_save_with_gui.py) scri
 
 (a) The metrics definitions are structured in a set of python modules. Each module implement a set of semantically similar metrics, some examples could be economy, army, diplomacy, etc. 
 
-(b) Also, you can find the [models subfolder](./metrics/models/) that defines the data structure for every section of information using Pydantic. This is used to ensure that required data for every metric is present (validation) and the file logic is in a human-readable format. You may need to edit this part or not, depending on what part of the vic3 saves you need.
+(b) Also, you can find the [models subfolder](./src/vic3_reader/metrics/models/) that defines the data structure for every section of information using Pydantic. This is used to ensure that required data for every metric is present (validation) and the file logic is in a human-readable format. You may need to edit this part or not, depending on what part of the vic3 saves you need.
 
 
 ### Why are you using pydantic models, reading the whole file and I need to care about all this strict logic?
@@ -21,13 +21,13 @@ This is done to support single responsability across the different parts of the 
 
 ### So, how can I add my own metrics?
 
-I strongly recommend first to have a look at some examples, like the [economy.py module](./metrics/economy.py) and understand how it uses the [models subfolder](./metrics/models/) to hint what parts of the save is using.
+I strongly recommend first to have a look at some examples, like the [economy.py module](./src/vic3_reader/metrics/economy.py) and understand how it uses the [models subfolder](./src/vic3_reader/metrics/models/) to hint what parts of the save is using.
 
-In each module, a main function is defined at the bottom that accept the save data and some parameters and decides what it needs to simplify the work of all the metrics in the module. The save data is a Vic3Save object defined in [the models __init__](./metrics/models/__init__.py), as this is always what the [orchestrator.py](./orchestrator.py) uses to get metrics. The orchestrator is very spoilt and does not care about how metrics are extracted.
+In each module, a main function is defined at the bottom that accept the save data and some parameters and decides what it needs to simplify the work of all the metrics in the module. The save data is a Vic3Save object defined in [the models __init__](./src/vic3_reader/metrics/models/__init__.py), as this is always what the [orchestrator.py](./src/vic3_reader/orchestrator.py) uses to get metrics. The orchestrator is very spoilt and does not care about how metrics are extracted.
 
-For example, the [economy.py module](./metrics/economy.py) implements get_economy() at the bottom, and this is the main function that decides how to work with every function that gets an unique metric. This function can be implemented in the [orchestrator.py](./orchestrator.py) to get all the economy stats that you want.
+For example, the [economy.py module](./src/vic3_reader/metrics/economy.py) implements get_economy() at the bottom, and this is the main function that decides how to work with every function that gets an unique metric. This function can be implemented in the [orchestrator.py](./src/vic3_reader/orchestrator.py) to get all the economy stats that you want.
 
-If you are working with a part of the vic3 save file that does not accomodate the Pydantic models in [models subfolder](./metrics/models/), feel free to create a module in the models folder that define the internal struccture of that part of the file. This always need to be added to the Vic3Save object defined in [the models __init__](./metrics/models/__init__.py). You can import from [the models basic.py](./metrics/models/basic.py) the general objects that are re-used across the whole vic3 file.
+If you are working with a part of the vic3 save file that does not accomodate the Pydantic models in [models subfolder](./src/vic3_reader/metrics/models/), feel free to create a module in the models folder that define the internal struccture of that part of the file. This always need to be added to the Vic3Save object defined in [the models __init__](./src/vic3_reader/metrics/models/__init__.py). You can import from [the models basic.py](./src/vic3_reader/metrics/models/basic.py) the general objects that are re-used across the whole vic3 file.
 
 
 ### How all this changes can be implemented in the master?

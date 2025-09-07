@@ -16,7 +16,7 @@ To use this tool,
 
 (1) first clone this repository or download the files.
 
-(2) Install dependencies specified in pyproject.toml and uv.loc with UV or another package tool.
+(2) Install dependencies specified in pyproject.toml and uv.lock with UV or another package tool.
 
 (3) Prepare your vic3 save files as plain text. By default, vic3 saves are binarized.
 
@@ -24,7 +24,9 @@ Try [reddit: How to edit/decrypt victoria 3 save files?](https://www.reddit.com/
 
 (4) Edit the [config.py](./config.py) to specify the location of your plain-text saves, how to save the stats, what metrics you want and which countries. Save changes.
 
-(5) Execute [main.py](./main.py) after editing the config.py file. The execution may take a while depending on how many saves you use. Usually it can take around 5 minutes per save.
+(5) Execute [main.py](./main.py) after editing the config.py file. The execution may take a while depending on how many saves you use and your hardware.*
+
+*When reading a plain-text Victoria3 save, it usually takes between 2 to 5 minutes to parse a save. If you execute the programme multiple times for the same saves, you may want to consider use the option `CACHE_AS_JSON=TRUE` in [config.py](./config.py). This will save a JSON representation of your save. But be careful, this JSON files have a big size, around 500MB.
  
 <br>
  
@@ -36,11 +38,11 @@ This tool is composed of 4 main setions.
 
 (a) Specify in [config.py](./config.py) the variables to execute the programme. Then, execute the [main.py](./main.py) file to extract the metrics.
 
-(b) The [Metrics modules](./metrics/) define how different stats are extracted from the save. To accurately navigate through vic3 data, the [models subfolder](./metrics/models/) defines the data structure for every section where metrics are extracted.
+(b) The [Metrics modules](./src/vic3_reader/metrics/) define how different stats are extracted from the save. To accurately navigate through vic3 data, the [models subfolder](./src/vic3_reader/metrics/models/) defines the data structure for every section where metrics are extracted.
 
-(c) The [parser modules](./parser/) define how to read the sintax of a vic3 save file by a DSL and how to translate it to a Python dictionary when reading a file.
+(c) The [parser modules](./src/vic3_reader/parser/) define how to read the sintax of a vic3 save file by a DSL and how to translate it to a Python dictionary when reading a file.
 
-(d) The [orchestrator.py](./orchestrator.py) module is in charge of combining all the logic, iterating through multiple files, reading and extrating metrics and providing methods to save them as different data formats.
+(d) The [orchestrator.py](./src/vic3_reader/orchestrator.py) module is in charge of combining all the logic, iterating through multiple files, reading and extrating metrics and providing methods to save them as different data formats.
 
 
 # License
