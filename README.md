@@ -26,7 +26,7 @@ Try [reddit: How to edit/decrypt victoria 3 save files?](https://www.reddit.com/
 
 (5) Execute [main.py](./main.py) after editing the config.py file. The execution may take a while depending on how many saves you use and your hardware.*
 
-*When reading a plain-text Victoria3 save, it usually takes between 2 to 5 minutes to parse a save. If you execute the programme multiple times for the same saves, you may want to consider use the option `CACHE_AS_JSON=TRUE` in [config.py](./config.py). This will save a JSON representation of your save. But be careful, this JSON files have a big size, around 500MB.
+*When reading a plain-text Victoria3 save, it usually takes between 2 to 5 minutes to parse a save. If you execute the programme multiple times for the same saves, you may want to consider use the option `CACHE_AS_JSON=TRUE` in [config.py](./config.py). This will save a JSON representation of your save. But be careful, these JSON files are big, around 500MB.
  
 <br>
  
