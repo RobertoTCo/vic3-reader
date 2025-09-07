@@ -10,3 +10,5 @@ wheels/
 .venv
 
 /saves/
+# just to have the folder in git
+!saves/.gitkeep 
